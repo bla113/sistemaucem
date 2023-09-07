@@ -568,13 +568,6 @@ foreach ($numro_carnet as $key => $carnet) {
 
 
 
-
-
-
-
-
-
-
             </div>
 
 

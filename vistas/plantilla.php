@@ -131,6 +131,7 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "usuarios" ||
         $_GET["ruta"] == "carreras" ||
         $_GET["ruta"] == "estudiantes" ||
+        $_GET["ruta"] == "editar-estudiante" ||
         $_GET["ruta"] == "expediente-estudiante" ||
         $_GET["ruta"] == "crear-estudiante" ||
         $_GET["ruta"] == "crear-estudiante-ex" ||
