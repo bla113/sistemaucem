@@ -1,15 +1,21 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
+
         <h1>
-            Invoice
-            <small>#007612</small>
+
+            Administrar matriculas
+
         </h1>
+
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Invoice</li>
+
+            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+
+            <li class="active">Administrar matriculas</li>
+
         </ol>
+
     </section>
 
 
@@ -19,10 +25,10 @@
         <!-- title row -->
         <div class="row">
             <div class="col-xs-12">
-                <h2 class="page-header">
-                    <i class="fa fa-university"></i> Universidad UCEM.
-                    <small class="pull-right"><?php echo $hoy = date("Y-m-d") ?></small>
-                </h2>
+                <h1 class="page-header">
+                    <i class="fa fa-university"></i> Universidad UCEM
+                    <p class="pull-right">Fecha: <?php echo $hoy = date("Y-m-d h:m") ?></p>
+                </h1>
             </div>
             <!-- /.col -->
         </div>
@@ -59,7 +65,7 @@
                                 <div class="form-group">
                                     <div class="input-group input-lg ">
 
-                                        <input type="text" id="identificacionB" class="form-control input-lg" placeholder="Ingrese criterio de búsqueda">
+                                        <input type="text" id="identificacionB"  value="603790355" class="form-control input-lg" placeholder="Ingrese criterio de búsqueda">
                                         <span class="input-group-btn">
                                             <button id="btnuscarEstudiante" type="button" class="btn btn-info btn-lg"><i class="fa fa-search"></i></button>
                                         </span>
@@ -149,7 +155,7 @@
 
         <div class="box-header with-border">
 
-            <button class="btn btn-success btn-lg" id="buscarOfertasE"><i class="fa fa-repeat"></i> Verificar ofertas </button>
+            <button class="btn btn-success btn-lg" id="buscarOfertasE"><i class="fa fa-repeat"></i> CARGAR MATERIAS </button>
 
         </div>
 
@@ -192,19 +198,15 @@
 
                     <div class="box-header with-border">
                         <div class="row">
-                            <div class="col col-3">
 
-                                <a class="btn btn-app bg-aqua-active pull-right" href="index.php?ruta=detalle-pre-matricula&idEstudiante=<?php echo 48 ?>&idCarrera=<?php echo 3 ?>&idPlanCarrera=<?php echo 3 ?>">
 
-                                    <i class="fa fa-cart-plus"></i> Ver Mátricula
-                                </a>
 
-                            </div>
+
                             <hr>
                             <div class="col col-3">
-                                <button class="btn btn-app  bg" data-toggle="modal" data-target="#modalAgregarUsuario">
+                                <button class="btn btn-app " id="verMateriasSeleccionadas" data-toggle="modal" data-target="#modalmateriasSeleccionadas">
 
-                                    Ver materias
+                                    Ver Carrito
 
                                 </button>
                                 <button class="btn btn-app bg-green-gradient" data-toggle="modal" data-target="#modalAgregarUsuario">
@@ -217,6 +219,12 @@
                                     Limpiar
 
                                 </button>
+
+                                <a class="btn btn-app bg-aqua-active" href="index.php?ruta=detalle-pre-matricula&idEstudiante=<?php echo 48 ?>&idCarrera=<?php echo 3 ?>&idPlanCarrera=<?php echo 3 ?>">
+
+                                    <i class="fa fa-cart-plus"></i> Procesar Pago
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -288,6 +296,96 @@ MODAL VER HORARIOS OFERTADOS
                         </thead>
 
                         <tbody id="horariosOferta">
+
+
+
+
+
+
+                        </tbody>
+
+                    </table>
+
+
+
+
+                </div>
+
+            </div>
+
+            <!--=====================================
+                    PIE DEL MODAL
+                    ======================================-->
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--=====================================
+MODAL VER MATERIAS SELECCIONADAS
+======================================-->
+
+<div id="modalmateriasSeleccionadas" class="modal fade" role="dialog">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+            <div class="modal-header" style="background:#3c8dbc; color:white">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title">Materias seleccionadas </h4>
+
+            </div>
+
+            <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+            <div class="modal-body ">
+
+                <div class="box-body">
+
+
+
+
+                    <table class="table table-bordered table-striped tablas">
+
+                        <thead>
+
+                            <tr>
+                                <th style="width:20px">Dia</th>
+                                <th>Materia</th>
+                                <th style="width:10px">Créditos</th>
+                                <th style="width:30px">Modalidad</th>
+                                <th style="width:40px">Horario</th>
+                                <th>Aula</th>
+                                <th>Profesor</th>
+                                <th style="width:10px">Acción</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="materiasSelccionadas">
 
 
 

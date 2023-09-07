@@ -67,7 +67,7 @@ $(".tablas").on("click", ".btnMatricular", function () {
       cancelButtonColor: "#d33",
       cancelButtonText: "Cancelar",
       confirmButtonText: "Si, cancelar!",
-    }).then(function (result) {});
+    }).then(function (result) { });
   }
 });
 
@@ -226,7 +226,7 @@ CALCULO TOTAL MATRICULA
 =============================================*/
 /*$("#selectMetodoPago").on("change", function(){
 
-	///var totalPrematricula = $(this)('option:selected');
+  ///var totalPrematricula = $(this)('option:selected');
 
   var optionSelected = $(this).val('option:selected');
 	
@@ -559,7 +559,7 @@ $("#btnuscarEstudiante").on("click", function () {
           $("#idestudiante").val(respuesta[0][0]);
           $("#idCarrera").val(respuesta[0][2]);
           $("#idPlanCarrera").val(respuesta[0][6]);
-          
+
         } else {
           console.log("no hay datos");
         }
@@ -577,9 +577,9 @@ $("#btnuscarEstudiante").on("click", function () {
 $("#buscarOfertasE").on("click", function () {
 
   var idEstudianteM = $("#idestudiante").val();
- 
-  var idCarrera =$("#idCarrera").val();
-  var idPlanCarrera =$("#idPlanCarrera").val();
+
+  var idCarrera = $("#idCarrera").val();
+  var idPlanCarrera = $("#idPlanCarrera").val();
 
   var datos = new FormData();
 
@@ -601,22 +601,214 @@ $("#buscarOfertasE").on("click", function () {
         html +=
           "<tr>" +
           "<td>" +
-          respuesta[i].COD_MATERIAs +
+          respuesta[i].COD_MATERIA +
           "</td>" +
           "<td>" +
           respuesta[i].NOM_MATERIA +
           "</td>" +
           "<td>" +
-          respuesta[i].COD_REQUISITO  +
+          respuesta[i].COD_REQUISITO +
           "</td>" +
           "<td>" +
           respuesta[i].CREDITOS +
           "</td>" +
-        
-          '<td> <button class="btn btn-warning btnVerHorariosMaterias" idOferta="'+respuesta[i].ID_OFERTA+'" idCarrera="'+idCarrera  +'" idEstudiante="'+idEstudianteM+'" idPlanCarrera="'+idPlanCarrera+'" " data-toggle="modal" data-target="#modalHorariosOferta">Ver horarios</button></td>' +
+
+          '<td> <button class="btn btn-warning btnVerHorariosMaterias" idOferta="' + respuesta[i].ID_OFERTA + '" idCarrera="' + idCarrera + '" idEstudiante="' + idEstudianteM + '" idPlanCarrera="' + idPlanCarrera + '" " data-toggle="modal" data-target="#modalHorariosOferta">Ver horarios</button></td>' +
           "</tr>";
       }
       $("#horariosOfertaM").html(html);
     },
+  });
+});
+
+
+/*=============================================
+          MOSTAR LAS MATERIAS SELECCIONADAS
+ =============================================*/
+
+$("#verMateriasSeleccionadas").on("click", function () {
+  var idEstudianteS = $("#idestudiante").val();
+  var idCarrera = $("#idCarrera").val();
+  var idPlanCarrera = $("#idPlanCarrera").val();
+
+
+
+  if (idEstudianteS !== "") {
+
+    var datos = new FormData();
+    datos.append("idEstudianteS", idEstudianteS);
+    $.ajax({
+      url: "ajax/estudiante.ajax.php",
+      method: "POST",
+      async: false,
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (respuesta) {
+        console.log(respuesta);
+
+        var html = "";
+        var i;
+        for (i = 0; i < respuesta.length; i++) {
+          html +=
+            "<tr>" +
+
+            "<td>" +
+            respuesta[i].DIA +
+            "</td>" +
+
+            "<td>" +
+            respuesta[i].NOM_MATERIA +
+            "</td>" +
+            "<td>" +
+            respuesta[i].COD_REQUISITO +
+            "</td>" +
+
+            "<td>" +
+            respuesta[i].MODALIDAD +
+            "</td>" +
+
+            "<td>" +
+            respuesta[i].INICIO + ' - ' + respuesta[i].FIN +
+            "</td>" +
+
+            "<td>" +
+            respuesta[i].NOM_AULA +
+            "</td>" +
+
+            "<td>" +
+            respuesta[i].NOMBRE_PROFESOR +
+            "</td>" +
+
+            '<td><button class="btn btn-danger accent-gray btnElimiDetalleSelec" idHorarioOfertaEliminar="' + respuesta[i].ID_DETALLE_MATRICULA + '" idEstudiante="' + idEstudianteS + '" idCarrera="' + idCarrera + '" idPlanCarrera="' + idPlanCarrera + '"><i class="fa-solid fa-trash-arrow-up"></i></button></td>' +
+
+
+
+            +"</tr>";
+        }
+        $("#materiasSelccionadas").html(html);
+      }
+    });
+
+  } else {
+
+    swal({
+      title: "No ha seleccionado al estudiante",
+      text: "¡Debe seleccionar un estudiante, y agregar las materias!",
+      type: "warning",
+      confirmButtonText: "¡Cerrar!"
+    });
+  }
+
+
+});
+/*=============================================
+            eLIMINAR MATERIA ELEGIDA
+ =============================================*/
+$(".tablas").on("click", ".btnElimiDetalleSelec", function () {
+  var idHorarioOfertaEliminar = $(this).attr("idHorarioOfertaEliminar");
+  var idEstudianteS = $(this).attr("idEstudiante");
+  var idCarrera = $(this).attr("idCarrera");
+  var idPlanCarrera = $(this).attr("idPlanCarrera");
+  var datos = new FormData();
+  datos.append("idHorarioOfertaEliminar", idHorarioOfertaEliminar);
+
+  swal({
+    title: "¿Está seguro desea quitar la materia?",
+    text: "¡Si no lo está puede cancelar la accíón!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Si, quitar materia!",
+  }).then(function (result) {
+    if (result.value) {
+      $.ajax({
+        url: "ajax/matricula.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+          if (respuesta) {
+
+            swal({
+              title: "Materia eliminda",
+              text: "¡Seleccione tra materia!",
+              type: "success",
+              confirmButtonText: "¡Cerrar!"
+            });
+
+
+            var datos = new FormData();
+            datos.append("idEstudianteS", idEstudianteS);
+            $.ajax({
+              url: "ajax/estudiante.ajax.php",
+              method: "POST",
+              async: false,
+              data: datos,
+              cache: false,
+              contentType: false,
+              processData: false,
+              dataType: "json",
+              success: function (respuesta) {
+
+
+                var html = "";
+                var i;
+                for (i = 0; i < respuesta.length; i++) {
+                  html +=
+                    "<tr>" +
+
+                    "<td>" +
+                    respuesta[i].DIA +
+                    "</td>" +
+
+                    "<td>" +
+                    respuesta[i].NOM_MATERIA +
+                    "</td>" +
+                    "<td>" +
+                    respuesta[i].COD_REQUISITO +
+                    "</td>" +
+
+                    "<td>" +
+                    respuesta[i].MODALIDAD +
+                    "</td>" +
+
+                    "<td>" +
+                    respuesta[i].INICIO + ' - ' + respuesta[i].FIN +
+                    "</td>" +
+
+                    "<td>" +
+                    respuesta[i].NOM_AULA +
+                    "</td>" +
+
+                    "<td>" +
+                    respuesta[i].NOMBRE_PROFESOR +
+                    "</td>" +
+
+                    '<td><button class="btn btn-danger accent-gray btnElimiDetalleSelec" idHorarioOfertaEliminar="' + respuesta[i].ID_DETALLE_MATRICULA + '" idEstudiante="' + idEstudianteS + '" idCarrera="' + idCarrera + '" idPlanCarrera="' + idPlanCarrera + '"><i class="fa-solid fa-trash-arrow-up"></i></button></td>' +
+
+
+
+                    +"</tr>";
+                }
+                $("#materiasSelccionadas").html(html);
+              }
+            });
+
+
+
+
+
+          }
+        },
+      });
+    }
   });
 });

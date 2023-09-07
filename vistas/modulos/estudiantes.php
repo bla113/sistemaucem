@@ -62,9 +62,10 @@
               <tr>
                 <td><?php echo $estudiante['IDENTIFICACION_ESTUDIANTE'] ?></td>
                 <td><?php echo $estudiante['NOMBRE_COMPLETO'] ." ". $estudiante['PRIMER_APELLIDO']." ".$estudiante['SEGUNDO_APELLIDO'] ?></td>
-                <td><?php // echo $estudiante['NOM_CARRERA'] ?></td>
+                <td><?php echo $estudiante['NOM_CARRERA'] ?></td>
                 
                 <td><?php echo $estudiante['CELULAR_ESTUDIANTE'] ?></td>
+                
                 <td><?php if ($estudiante["ESTADO"] === 1) {
 
                       echo '<button class="btn btn-success btn-xs btnActivar" idEstudiante="' . $estudiante["ID_ESTUDIANTE"] . '" estadoEstudiante="0">Activado</button>';
@@ -84,7 +85,7 @@
                     <button class="btn btn-adn  btnEliminarEstudiante" idEstudiante="<?php echo $estudiante['ID_ESTUDIANTE'] ?>"><i class="fa fa-trash"></i></button>
 
 
-                    <a href="#" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                    <a href="index.php?ruta=editar-estudiante&idEstudiante=<?php echo  $estudiante['ID_ESTUDIANTE'] ?>&idCarrera=<?php echo  $estudiante['ID_CARRERA'] ?>&idPlanCarrera=<?php echo  $estudiante['ID_PLAN_CARRERA'] ?>" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                     
                     <a href="index.php?ruta=expediente-estudiante&idEstudiante=<?php echo  $estudiante['ID_ESTUDIANTE'] ?>&idCarrera=<?php echo  $estudiante['ID_CARRERA'] ?>&idPlanCarrera=<?php echo  $estudiante['ID_PLAN_CARRERA'] ?>" class="btn btn-primary" ><i class="fa fa-eye"></i></a>
 
